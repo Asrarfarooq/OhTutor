@@ -112,24 +112,18 @@ const courseSchedule = [
     }
 ];
 
-
-// Function to generate a dynamic password for each week
-function generateWeekPassword(weekNumber) {
-    const basePassword = "ot";
-    return `${basePassword}${weekNumber}${new Date().getFullYear()}`;
-}
+const STATIC_PASSWORD = "ohtutor2024";
 
 // Lock all weeks except the first one initially
 courseSchedule.forEach((week, index) => {
     week.locked = index > 0;
-    week.password = generateWeekPassword(week.week);
 });
 
 let currentWeek = null;
 
 function unlockWeek(weekNumber, enteredPassword) {
     const week = courseSchedule.find(w => w.week === weekNumber);
-    if (week && enteredPassword === week.password) {
+    if (week && enteredPassword === STATIC_PASSWORD) {
         week.locked = false;
         updateScheduleDisplay();
         return true;
@@ -153,7 +147,8 @@ function populateScheduleTable() {
         const lockIcon = document.createElement('span');
         lockIcon.textContent = week.locked ? '🔒' : '🔓';
         lockIcon.classList.add('lock-icon');
-        lockIcon.addEventListener('click', () => {
+        lockIcon.addEventListener('click', (e) => {
+            e.stopPropagation();
             if (week.locked) {
                 showPasswordModal(week.week);
             } else {
@@ -168,7 +163,7 @@ function populateScheduleTable() {
         const topicsList = document.createElement('ul');
         week.topics.forEach(topic => {
             const listItem = document.createElement('li');
-            listItem.textContent = `${topic.day}: ${topic.content}`;
+            listItem.textContent = topic.day ? `${topic.day}: ${topic.content}` : topic.content;
             topicsList.appendChild(listItem);
         });
         topicsCell.appendChild(topicsList);
@@ -188,31 +183,65 @@ function populateScheduleTable() {
         resourcesCell.appendChild(resourcesList);
         row.appendChild(resourcesCell);
 
-        const notesCell = document.createElement('td');
-        if (week.quiz) {
-            const quizButton = document.createElement('button');
-            quizButton.textContent = 'Take Quiz';
-            quizButton.addEventListener('click', () => showQuiz(week.week));
-            notesCell.appendChild(quizButton);
-        }
-        row.appendChild(notesCell);
-
         const notebookCell = document.createElement('td');
         if (week.notebookId) {
             const notebookLink = document.createElement('a');
-            notebookLink.href = week.notebookId;
+            notebookLink.href = "#";
             notebookLink.textContent = 'Open Notebook';
-            notebookLink.target = '_blank';
+            notebookLink.addEventListener('click', (e) => {
+                e.preventDefault();
+                openNotebook(week.notebookId);
+            });
             notebookCell.appendChild(notebookLink);
         }
         row.appendChild(notebookCell);
 
         if (week.locked) {
             row.classList.add('locked');
+            row.style.pointerEvents = 'none';
+            row.style.opacity = '0.5';
         }
 
         tableBody.appendChild(row);
     });
+}
+
+function openNotebook(notebookId) {
+    const jupyterLiteUrl = 'https://jupyterlite.github.io/demo/repl/index.html?kernel=python&toolbar=1';
+    const notebookUrl = `https://raw.githubusercontent.com/yourusername/yourrepository/main/notebooks/${notebookId}`;
+    
+    fetch(notebookUrl)
+        .then(response => response.json())
+        .then(notebookContent => {
+            const encodedNotebook = encodeURIComponent(JSON.stringify(notebookContent));
+            const fullUrl = `${jupyterLiteUrl}&notebook=${encodedNotebook}`;
+            
+            // Open JupyterLite in a new window
+            const jupyterWindow = window.open('', '_blank', 'width=800,height=600');
+            jupyterWindow.document.write(`
+                <html>
+                    <head>
+                        <title>OhTutor Jupyter Notebook</title>
+                        <style>
+                            body, html, iframe {
+                                margin: 0;
+                                padding: 0;
+                                height: 100%;
+                                width: 100%;
+                                border: none;
+                            }
+                        </style>
+                    </head>
+                    <body>
+                        <iframe src="${fullUrl}" width="100%" height="100%"></iframe>
+                    </body>
+                </html>
+            `);
+        })
+        .catch(error => {
+            console.error('Error loading notebook:', error);
+            alert('Failed to load the notebook. Please try again later.');
+        });
 }
 
 function showPasswordModal(weekNumber) {
@@ -248,13 +277,6 @@ function setupPasswordModal() {
             modal.style.display = 'none';
         }
     });
-}
-
-function showQuiz(weekNumber) {
-    const week = courseSchedule.find(w => w.week === weekNumber);
-    if (week && week.quiz) {
-        alert(`Quiz for Week ${weekNumber}: ${week.quiz}\n\nQuiz content would be displayed here.`);
-    }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
