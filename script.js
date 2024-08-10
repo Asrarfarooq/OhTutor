@@ -112,18 +112,24 @@ const courseSchedule = [
     }
 ];
 
-const STATIC_PASSWORD = "adminpass";
+
+// Function to generate a dynamic password for each week
+function generateWeekPassword(weekNumber) {
+    const basePassword = "ot";
+    return `${basePassword}${weekNumber}${new Date().getFullYear()}`;
+}
 
 // Lock all weeks except the first one initially
 courseSchedule.forEach((week, index) => {
     week.locked = index > 0;
+    week.password = generateWeekPassword(week.week);
 });
 
 let currentWeek = null;
 
 function unlockWeek(weekNumber, enteredPassword) {
     const week = courseSchedule.find(w => w.week === weekNumber);
-    if (week && enteredPassword === STATIC_PASSWORD) {
+    if (week && enteredPassword === week.password) {
         week.locked = false;
         updateScheduleDisplay();
         return true;
@@ -145,8 +151,8 @@ function populateScheduleTable() {
         const weekCell = document.createElement('td');
         weekCell.textContent = `Week ${week.week}`;
         const lockIcon = document.createElement('span');
-        lockIcon.innerHTML = week.locked ? '🔒' : '🔓';
-        lockIcon.style.cursor = 'pointer';
+        lockIcon.textContent = week.locked ? '🔒' : '🔓';
+        lockIcon.classList.add('lock-icon');
         lockIcon.addEventListener('click', () => {
             if (week.locked) {
                 showPasswordModal(week.week);
@@ -189,14 +195,21 @@ function populateScheduleTable() {
             quizButton.addEventListener('click', () => showQuiz(week.week));
             notesCell.appendChild(quizButton);
         }
+        row.appendChild(notesCell);
+
+        const notebookCell = document.createElement('td');
         if (week.notebookId) {
             const notebookLink = document.createElement('a');
             notebookLink.href = week.notebookId;
             notebookLink.textContent = 'Open Notebook';
             notebookLink.target = '_blank';
-            notesCell.appendChild(notebookLink);
+            notebookCell.appendChild(notebookLink);
         }
-        row.appendChild(notesCell);
+        row.appendChild(notebookCell);
+
+        if (week.locked) {
+            row.classList.add('locked');
+        }
 
         tableBody.appendChild(row);
     });
@@ -207,10 +220,12 @@ function showPasswordModal(weekNumber) {
     const modal = document.getElementById('passwordModal');
     const passwordInput = document.getElementById('passwordInput');
     const passwordError = document.getElementById('passwordError');
+    const modalWeekNumber = document.getElementById('modalWeekNumber');
 
     modal.style.display = 'block';
     passwordInput.value = '';
     passwordError.textContent = '';
+    modalWeekNumber.textContent = weekNumber;
 }
 
 function setupPasswordModal() {
