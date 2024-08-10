@@ -111,6 +111,7 @@ const courseSchedule = [
         exam: "Final Exam: Comprehensive Python Skills"
     }
 ];
+
 const STATIC_PASSWORD = "adminpass";
 
 // Lock all weeks except the first one initially
