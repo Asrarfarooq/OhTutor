@@ -2,102 +2,102 @@ const courseSchedule = [
     {
         week: 1,
         topics: [
-            { day: "Monday", content: "What is programming? Introduction to Python" },
-            { day: "Wednesday", content: "Setting up Python environment, first 'Hello, World!' program" },
-            { day: "Friday", content: "Variables and data types + Mini Quiz #1" }
+            { day: "Monday", content: "What is programming?" },
+            { day: "Wednesday", content: "Your first Python program" },
+            { day: "Friday", content: "Simple math operations and Introduction to variables" }
         ],
-        resources: ["https://docs.python.org/3/tutorial/introduction.html", "https://www.w3schools.com/python/python_intro.asp"],
+        resources: ["https://www.python.org/about/gettingstarted/", "https://www.w3schools.com/python/python_intro.asp"],
         notebookId: "notebooks/week1_intro_to_python.ipynb"
     },
     {
         week: 2,
         topics: [
-            { day: "Monday", content: "Basic input/output and simple math operations" },
-            { day: "Wednesday", content: "Strings and string operations" },
-            { day: "Friday", content: "Fun Activity: 'Code the Story' + Mini Quiz #2" }
+            { day: "Monday", content: "String basics" },
+            { day: "Wednesday", content: "More about variables and Basic input/output" },
+            { day: "Friday", content: "Simple string operations + Mini Quiz" }
         ],
-        resources: ["https://realpython.com/python-strings/", "https://www.w3schools.com/python/python_strings.asp"],
-        notebookId: "notebooks/week2_strings_and_operations.ipynb"
+        resources: ["https://www.w3schools.com/python/python_strings.asp", "https://realpython.com/python-strings/"],
+        notebookId: "notebooks/week2_text_and_numbers.ipynb"
     },
     {
         week: 3,
         topics: [
-            { day: "Monday", content: "Conditional statements (if, else, elif)" },
-            { day: "Wednesday", content: "Loops (for and while)" },
-            { day: "Friday", content: "Mini-Exam #1 (covers weeks 1-3)" }
+            { day: "Monday", content: "Introduction to booleans (True/False)" },
+            { day: "Wednesday", content: "If statements" },
+            { day: "Friday", content: "Else and elif statements + Simple decision-making programs" }
         ],
-        resources: ["https://realpython.com/python-conditional-statements/", "https://wiki.python.org/moin/ForLoop"],
-        notebookId: "notebooks/week3_control_structures.ipynb"
+        resources: ["https://realpython.com/python-conditional-statements/", "https://www.w3schools.com/python/python_conditions.asp"],
+        notebookId: "notebooks/week3_making_decisions.ipynb"
     },
     {
         week: 4,
         topics: [
-            { day: "Monday", content: "Lists and list operations" },
-            { day: "Wednesday", content: "Introduction to functions" },
-            { day: "Friday", content: "Function parameters and return values + Mini Quiz #3" }
+            { day: "Monday", content: "Introduction to loops" },
+            { day: "Wednesday", content: "For loops with ranges" },
+            { day: "Friday", content: "While loops + Simple programs using loops" }
         ],
-        resources: ["https://docs.python.org/3/tutorial/datastructures.html", "https://www.w3schools.com/python/python_functions.asp"],
-        notebookId: "notebooks/week4_lists_and_functions.ipynb"
+        resources: ["https://wiki.python.org/moin/ForLoop", "https://www.w3schools.com/python/python_while_loops.asp"],
+        notebookId: "notebooks/week4_loops.ipynb"
     },
     {
         week: 5,
         topics: [
-            { day: "Monday", content: "Simple problem-solving with functions" },
-            { day: "Wednesday", content: "Dictionaries" },
-            { day: "Friday", content: "Fun Activity: 'Python Treasure Hunt'" }
+            { day: "Monday", content: "Introduction to lists" },
+            { day: "Wednesday", content: "Adding and removing items from lists" },
+            { day: "Friday", content: "Looping through lists + Simple list-based programs" }
         ],
-        resources: ["https://realpython.com/python-dicts/", "https://www.programiz.com/python-programming/dictionary"],
-        notebookId: "notebooks/week5_problem_solving_and_dicts.ipynb"
+        resources: ["https://docs.python.org/3/tutorial/introduction.html#lists", "https://www.w3schools.com/python/python_lists.asp"],
+        notebookId: "notebooks/week5_lists.ipynb"
     },
     {
         week: 6,
         topics: [
-            { day: "Monday", content: "Tuples and sets" },
-            { day: "Wednesday", content: "Reading and writing files" },
-            { day: "Friday", content: "Error handling (try/except) + Mini Quiz #4" }
+            { day: "Monday", content: "What are functions?" },
+            { day: "Wednesday", content: "Creating simple functions" },
+            { day: "Friday", content: "Function parameters and Return values" }
         ],
-        resources: ["https://realpython.com/python-sets-tuples/", "https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files"],
-        notebookId: "notebooks/week6_files_and_errors.ipynb"
+        resources: ["https://www.w3schools.com/python/python_functions.asp", "https://realpython.com/defining-your-own-python-function/"],
+        notebookId: "notebooks/week6_functions_intro.ipynb"
     },
     {
         week: 7,
         topics: [
-            { day: "Monday", content: "Review of all concepts" },
-            { day: "Wednesday", content: "Main Exam #1 (covers weeks 1-6)" },
-            { day: "Friday", content: "Exam review and introduction to object-oriented programming" }
+            { day: "Monday", content: "Review of concepts" },
+            { day: "Wednesday", content: "Guided mini-projects (e.g., simple calculator, guessing game)" },
+            { day: "Friday", content: "Introduction to problem-solving with Python" }
         ],
-        resources: ["https://realpython.com/python3-object-oriented-programming/"],
-        notebookId: "notebooks/week7_review_and_oop_intro.ipynb"
+        resources: ["https://www.practicepython.org/", "https://projecteuler.net/archives"],
+        notebookId: "notebooks/week7_mini_projects.ipynb"
     },
     {
         week: 8,
         topics: [
-            { day: "Monday", content: "Creating simple classes" },
-            { day: "Wednesday", content: "Inheritance basics" },
-            { day: "Friday", content: "Mini-Exam #2 (focuses on OOP concepts)" }
+            { day: "Monday", content: "More complex functions" },
+            { day: "Wednesday", content: "Introduction to modules" },
+            { day: "Friday", content: "Using simple built-in modules (e.g., random, time)" }
         ],
-        resources: ["https://docs.python.org/3/tutorial/classes.html", "https://www.w3schools.com/python/python_inheritance.asp"],
-        notebookId: "notebooks/week8_oop_basics.ipynb"
+        resources: ["https://docs.python.org/3/tutorial/modules.html", "https://realpython.com/python-modules-packages/"],
+        notebookId: "notebooks/week8_modules.ipynb"
     },
     {
         week: 9,
         topics: [
-            { day: "Monday", content: "Final project introduction and planning" },
-            { day: "Wednesday", content: "Project work and guidance" },
-            { day: "Friday", content: "Project presentations and course wrap-up + Fun Activity: 'Python Coding Challenge'" }
+            { day: "Monday", content: "Reading from files" },
+            { day: "Wednesday", content: "Writing to files" },
+            { day: "Friday", content: "Simple data storage projects" }
         ],
-        resources: ["https://realpython.com/intermediate-python-project-ideas/"],
-        notebookId: "notebooks/week9_final_project.ipynb"
+        resources: ["https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files", "https://realpython.com/read-write-files-python/"],
+        notebookId: "notebooks/week9_file_handling.ipynb"
     },
     {
         week: 10,
         topics: [
-            { day: "Monday", content: "Introduction to a few advanced topics (e.g., modules, list comprehensions)" },
-            { day: "Wednesday", content: "Main Exam #2 (comprehensive)" },
-            { day: "Friday", content: "Course review, certificate distribution, and 'Next Steps in Python' discussion" }
+            { day: "Monday", content: "Guided final project (e.g., simple text-based game)" },
+            { day: "Wednesday", content: "Review of the course" },
+            { day: "Friday", content: "Introduction to further learning resources" }
         ],
-        resources: ["https://docs.python.org/3/tutorial/modules.html", "https://realpython.com/list-comprehension-python/"],
-        notebookId: "notebooks/week10_advanced_topics_and_next_steps.ipynb"
+        resources: ["https://inventwithpython.com/invent4thed/", "https://www.python.org/about/apps/"],
+        notebookId: "notebooks/week10_final_project.ipynb"
     }
 ];
 
