@@ -1,50 +1,155 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Course for 6th Grade Students</title>
-    <link rel="stylesheet" href="styles.css">
-    <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jupyterlite/theme-light-extension@^0.1.0/style/index.css">
-    <script src="https://cdn.jsdelivr.net/npm/@jupyterlite/javascript-kernel-extension@^0.1.0/dist/index.js"></script>
-</head>
-<body>
-    <div class="container">
-        <h1>Python Course for 6th Grade Students</h1>
-        <table id="scheduleTable">
-            <thead>
-                <tr>
-                    <th>Week</th>
-                    <th>Topics</th>
-                    <th>Resources</th>
-                    <th>Notes</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Table rows will be populated by JavaScript -->
-            </tbody>
-        </table>
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
 
-        <div class="content-area">
-            <h2>Weekly Content</h2>
-            <div class="tabs">
-                <button class="tab-button active" data-tab="notebook">Jupyter Notebook</button>
-                <button class="tab-button" data-tab="editor">Code Editor</button>
-            </div>
-            <div class="tab-content">
-                <div id="notebook" class="tab-pane active">
-                    <div id="jupyter-lite-container" style="height: 600px;"></div>
-                </div>
-                <div id="editor" class="tab-pane">
-                    <textarea id="codeEditor" rows="10" cols="50">print('Hello, World!')</textarea>
-                    <button id="runCode">Run Code</button>
-                    <div id="output"></div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <script src="https://cdn.jsdelivr.net/npm/@jupyterlite/core@^0.1.0/dist/index.js"></script>
-    <script src="script.js"></script>
-</body>
-</html>
+.container {
+    max-width: 1200px;
+    margin: auto;
+    overflow: auto;
+    padding: 0 20px;
+}
+
+h1, h2 {
+    color: #333;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.content-area {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.tabs {
+    overflow: hidden;
+    border: 1px solid #ccc;
+    background-color: #f1f1f1;
+}
+
+.tab-button {
+    background-color: inherit;
+    float: left;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 14px 16px;
+    transition: 0.3s;
+}
+
+.tab-button:hover {
+    background-color: #ddd;
+}
+
+.tab-button.active {
+    background-color: #ccc;
+}
+
+.tab-content {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-top: none;
+}
+
+.tab-pane {
+    display: none;
+}
+
+.tab-pane.active {
+    display: block;
+}
+
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #45a049;
+}
+
+#output {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f1f1f1;
+    border: 1px solid #ddd;
+}
+
+.locked {
+    opacity: 0.5;
+}
+
+.locked td {
+    position: relative;
+}
+
+.locked td::after {
+    content: '🔒';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 300px;
+    text-align: center;
+}
+
+.modal input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.error {
+    color: red;
+    margin-top: 10px;
+}
