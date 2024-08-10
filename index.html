@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oh Tutor - Python Course for 6th Grade Students</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/pyodide/v0.21.3/full/pyodide.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@jupyterlite/theme-light-extension@^0.1.0/style/index.css">
+    <script src="https://cdn.jsdelivr.net/npm/@jupyterlite/javascript-kernel-extension@^0.1.0/dist/index.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>Oh Tutor - Python Course for 6th Grade Students</h1>
+        <table id="scheduleTable">
+            <thead>
+                <tr>
+                    <th>Week</th>
+                    <th>Topics</th>
+                    <th>Resources</th>
+                    <th>Notes</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows will be populated by JavaScript -->
+            </tbody>
+        </table>
+
+        <div class="content-area">
+            <h2>Weekly Content</h2>
+            <div class="tabs">
+                <button class="tab-button active" data-tab="notebook">Jupyter Notebook</button>
+                <button class="tab-button" data-tab="editor">Code Editor</button>
+            </div>
+            <div class="tab-content">
+                <div id="notebook" class="tab-pane active">
+                    <div id="jupyter-lite-container" style="height: 600px;"></div>
+                </div>
+                <div id="editor" class="tab-pane">
+                    <textarea id="codeEditor" rows="10" cols="50">print('Hello, World!')</textarea>
+                    <button id="runCode">Run Code</button>
+                    <div id="output"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="passwordModal" class="modal">
+        <div class="modal-content">
+            <h2>Enter Password to Unlock</h2>
+            <input type="password" id="passwordInput" placeholder="Enter password">
+            <button id="submitPassword">Unlock</button>
+            <p id="passwordError" class="error"></p>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@jupyterlite/core@^0.1.0/dist/index.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
