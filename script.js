@@ -111,7 +111,6 @@ const courseSchedule = [
         exam: "Final Exam: Comprehensive Python Skills"
     }
 ];
-// Set a static password for all weeks
 const STATIC_PASSWORD = "adminpass";
 
 // Lock all weeks except the first one initially
@@ -144,6 +143,18 @@ function populateScheduleTable() {
         
         const weekCell = document.createElement('td');
         weekCell.textContent = `Week ${week.week}`;
+        const lockIcon = document.createElement('span');
+        lockIcon.innerHTML = week.locked ? '🔒' : '🔓';
+        lockIcon.style.cursor = 'pointer';
+        lockIcon.addEventListener('click', () => {
+            if (week.locked) {
+                showPasswordModal(week.week);
+            } else {
+                week.locked = true;
+                updateScheduleDisplay();
+            }
+        });
+        weekCell.appendChild(lockIcon);
         row.appendChild(weekCell);
 
         const topicsCell = document.createElement('td');
@@ -170,27 +181,21 @@ function populateScheduleTable() {
         resourcesCell.appendChild(resourcesList);
         row.appendChild(resourcesCell);
 
-        const activityCell = document.createElement('td');
+        const notesCell = document.createElement('td');
         if (week.quiz) {
             const quizButton = document.createElement('button');
             quizButton.textContent = 'Take Quiz';
             quizButton.addEventListener('click', () => showQuiz(week.week));
-            activityCell.appendChild(quizButton);
+            notesCell.appendChild(quizButton);
         }
-        if (week.exam) {
-            const examButton = document.createElement('button');
-            examButton.textContent = 'Take Exam';
-            examButton.addEventListener('click', () => showExam(week.week));
-            activityCell.appendChild(examButton);
+        if (week.notebookId) {
+            const notebookLink = document.createElement('a');
+            notebookLink.href = week.notebookId;
+            notebookLink.textContent = 'Open Notebook';
+            notebookLink.target = '_blank';
+            notesCell.appendChild(notebookLink);
         }
-        row.appendChild(activityCell);
-
-        if (week.locked) {
-            row.classList.add('locked');
-            row.addEventListener('click', () => showPasswordModal(week.week));
-        } else {
-            row.addEventListener('click', () => loadNotebook(week.notebookId));
-        }
+        row.appendChild(notesCell);
 
         tableBody.appendChild(row);
     });
@@ -236,67 +241,7 @@ function showQuiz(weekNumber) {
     }
 }
 
-function showExam(weekNumber) {
-    const week = courseSchedule.find(w => w.week === weekNumber);
-    if (week && week.exam) {
-        alert(`Exam for Week ${weekNumber}: ${week.exam}\n\nExam content would be displayed here.`);
-    }
-}
-
-function setupTabs() {
-    const tabButtons = document.querySelectorAll('.tab-button');
-    const tabContents = document.querySelectorAll('.tab-pane');
-
-    tabButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const tabName = button.getAttribute('data-tab');
-            
-            tabButtons.forEach(btn => btn.classList.remove('active'));
-            tabContents.forEach(content => content.classList.remove('active'));
-
-            button.classList.add('active');
-            document.getElementById(tabName).classList.add('active');
-        });
-    });
-}
-
-function setupCodeEditor() {
-    const runButton = document.getElementById('runCode');
-    const codeEditor = document.getElementById('codeEditor');
-    const output = document.getElementById('output');
-
-    runButton.addEventListener('click', async () => {
-        const code = codeEditor.value;
-        output.textContent = 'Running...';
-        
-        try {
-            const pyodide = await loadPyodide();
-            await pyodide.loadPackage("numpy");
-            const result = await pyodide.runPythonAsync(code);
-            output.textContent = result;
-        } catch (error) {
-            output.textContent = `Error: ${error.message}`;
-        }
-    });
-}
-
-async function initJupyterLite() {
-    const jupyterLite = await window.jupyterLite.create({
-        container: document.getElementById('jupyter-lite-container')
-    });
-    await jupyterLite.init();
-    return jupyterLite;
-}
-
-async function loadNotebook(notebookId) {
-    const jupyterLite = await initJupyterLite();
-    await jupyterLite.open(notebookId);
-}
-
 document.addEventListener('DOMContentLoaded', () => {
     populateScheduleTable();
-    setupTabs();
-    setupCodeEditor();
-    initJupyterLite();
     setupPasswordModal();
 });
