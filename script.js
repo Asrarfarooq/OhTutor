@@ -7,8 +7,7 @@ const courseSchedule = [
             { day: "Friday", content: "Fun Project: Create a silly sentence generator" }
         ],
         resources: ["https://www.python.org/about/gettingstarted/", "https://www.w3schools.com/python/python_intro.asp"],
-        notebookId: "notebooks/week1_intro_to_python.ipynb",
-        quiz: "Mini Quiz: Basic Python Concepts"
+        notebookId: "week1_intro_to_python.ipynb"
     },
     {
         week: 2,
@@ -18,8 +17,7 @@ const courseSchedule = [
             { day: "Friday", content: "Fun Project: Build a simple calculator" }
         ],
         resources: ["https://www.w3schools.com/python/python_numbers.asp", "https://www.w3schools.com/python/python_variables.asp"],
-        notebookId: "notebooks/week2_numbers_and_variables.ipynb",
-        quiz: "Mini Quiz: Math Operations and Variables"
+        notebookId: "week2_numbers_and_variables.ipynb"
     },
     {
         week: 3,
@@ -29,8 +27,7 @@ const courseSchedule = [
             { day: "Friday", content: "Fun Project: Create a mad libs game" }
         ],
         resources: ["https://www.w3schools.com/python/python_strings.asp", "https://realpython.com/python-strings/"],
-        notebookId: "notebooks/week3_strings.ipynb",
-        quiz: "Mini Quiz: String Manipulation"
+        notebookId: "week3_strings.ipynb"
     },
     {
         week: 4,
@@ -40,8 +37,7 @@ const courseSchedule = [
             { day: "Friday", content: "Fun Project: Build a to-do list app" }
         ],
         resources: ["https://www.w3schools.com/python/python_lists.asp", "https://realpython.com/python-lists-tuples/"],
-        notebookId: "notebooks/week4_lists.ipynb",
-        quiz: "Mini Quiz: Working with Lists"
+        notebookId: "week4_lists.ipynb"
     },
     {
         week: 5,
@@ -51,9 +47,7 @@ const courseSchedule = [
             { day: "Friday", content: "Fun Project: Create a simple quiz game" }
         ],
         resources: ["https://www.w3schools.com/python/python_conditions.asp", "https://realpython.com/python-conditional-statements/"],
-        notebookId: "notebooks/week5_decisions.ipynb",
-        quiz: "Mini Quiz: Conditional Statements",
-        exam: "Mid-term Exam: Basics of Python Programming"
+        notebookId: "week5_decisions.ipynb"
     },
     {
         week: 6,
@@ -63,8 +57,7 @@ const courseSchedule = [
             { day: "Friday", content: "Fun Project: Design a number guessing game" }
         ],
         resources: ["https://www.w3schools.com/python/python_for_loops.asp", "https://www.w3schools.com/python/python_while_loops.asp"],
-        notebookId: "notebooks/week6_loops.ipynb",
-        quiz: "Mini Quiz: Looping in Python"
+        notebookId: "week6_loops.ipynb"
     },
     {
         week: 7,
@@ -74,8 +67,7 @@ const courseSchedule = [
             { day: "Friday", content: "Fun Project: Build a simple drawing program" }
         ],
         resources: ["https://www.w3schools.com/python/python_functions.asp", "https://realpython.com/defining-your-own-python-function/"],
-        notebookId: "notebooks/week7_functions.ipynb",
-        quiz: "Mini Quiz: Working with Functions"
+        notebookId: "week7_functions.ipynb"
     },
     {
         week: 8,
@@ -85,8 +77,7 @@ const courseSchedule = [
             { day: "Friday", content: "Fun Project: Create a mini address book" }
         ],
         resources: ["https://www.w3schools.com/python/python_dictionaries.asp", "https://realpython.com/python-dicts/"],
-        notebookId: "notebooks/week8_dictionaries.ipynb",
-        quiz: "Mini Quiz: Using Dictionaries"
+        notebookId: "week8_dictionaries.ipynb"
     },
     {
         week: 9,
@@ -96,8 +87,7 @@ const courseSchedule = [
             { day: "Friday", content: "Fun Project: Build a simple note-taking app" }
         ],
         resources: ["https://www.w3schools.com/python/python_file_handling.asp", "https://realpython.com/read-write-files-python/"],
-        notebookId: "notebooks/week9_file_handling.ipynb",
-        quiz: "Mini Quiz: File Operations"
+        notebookId: "week9_file_handling.ipynb"
     },
     {
         week: 10,
@@ -107,8 +97,7 @@ const courseSchedule = [
             { day: "Friday", content: "Project presentations and course wrap-up" }
         ],
         resources: ["https://inventwithpython.com/invent4thed/", "https://www.python.org/about/apps/"],
-        notebookId: "notebooks/week10_final_project.ipynb",
-        exam: "Final Exam: Comprehensive Python Skills"
+        notebookId: "week10_final_project.ipynb"
     }
 ];
 
@@ -163,7 +152,7 @@ function populateScheduleTable() {
         const topicsList = document.createElement('ul');
         week.topics.forEach(topic => {
             const listItem = document.createElement('li');
-            listItem.textContent = topic.day ? `${topic.day}: ${topic.content}` : topic.content;
+            listItem.textContent = `${topic.day}: ${topic.content}`;
             topicsList.appendChild(listItem);
         });
         topicsCell.appendChild(topicsList);
@@ -190,7 +179,9 @@ function populateScheduleTable() {
             notebookLink.textContent = 'Open Notebook';
             notebookLink.addEventListener('click', (e) => {
                 e.preventDefault();
-                openNotebook(week.notebookId);
+                if (!week.locked) {
+                    openNotebook(week.notebookId);
+                }
             });
             notebookCell.appendChild(notebookLink);
         }
@@ -198,8 +189,10 @@ function populateScheduleTable() {
 
         if (week.locked) {
             row.classList.add('locked');
-            row.style.pointerEvents = 'none';
-            row.style.opacity = '0.5';
+            row.querySelectorAll('a').forEach(link => {
+                link.style.pointerEvents = 'none';
+                link.style.opacity = '0.5';
+            });
         }
 
         tableBody.appendChild(row);
@@ -208,7 +201,7 @@ function populateScheduleTable() {
 
 function openNotebook(notebookId) {
     const jupyterLiteUrl = 'https://jupyterlite.github.io/demo/repl/index.html?kernel=python&toolbar=1';
-    const notebookUrl = `https://raw.githubusercontent.com/yourusername/yourrepository/main/notebooks/${notebookId}`;
+    const notebookUrl = `https://raw.githubusercontent.com/Asrarfarooq/OhTutor/main/notebooks/${notebookId}`;
     
     fetch(notebookUrl)
         .then(response => response.json())
