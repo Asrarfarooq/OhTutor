@@ -2,116 +2,128 @@ const courseSchedule = [
     {
         week: 1,
         topics: [
-            { day: "Monday", content: "What is programming?" },
-            { day: "Wednesday", content: "Your first Python program" },
-            { day: "Friday", content: "Simple math operations and Introduction to variables" }
+            { day: "Monday", content: "What is programming? Intro to Python" },
+            { day: "Wednesday", content: "Your first Python program: Hello, World!" },
+            { day: "Friday", content: "Fun Project: Create a silly sentence generator" }
         ],
         resources: ["https://www.python.org/about/gettingstarted/", "https://www.w3schools.com/python/python_intro.asp"],
-        notebookId: "notebooks/week1_intro_to_python.ipynb"
+        notebookId: "notebooks/week1_intro_to_python.ipynb",
+        quiz: "Mini Quiz: Basic Python Concepts"
     },
     {
         week: 2,
         topics: [
-            { day: "Monday", content: "String basics" },
-            { day: "Wednesday", content: "More about variables and Basic input/output" },
-            { day: "Friday", content: "Simple string operations + Mini Quiz" }
+            { day: "Monday", content: "Numbers and Math in Python" },
+            { day: "Wednesday", content: "Variables: Storing and Using Information" },
+            { day: "Friday", content: "Fun Project: Build a simple calculator" }
         ],
-        resources: ["https://www.w3schools.com/python/python_strings.asp", "https://realpython.com/python-strings/"],
-        notebookId: "notebooks/week2_text_and_numbers.ipynb"
+        resources: ["https://www.w3schools.com/python/python_numbers.asp", "https://www.w3schools.com/python/python_variables.asp"],
+        notebookId: "notebooks/week2_numbers_and_variables.ipynb",
+        quiz: "Mini Quiz: Math Operations and Variables"
     },
     {
         week: 3,
         topics: [
-            { day: "Monday", content: "Introduction to booleans (True/False)" },
-            { day: "Wednesday", content: "If statements" },
-            { day: "Friday", content: "Else and elif statements + Simple decision-making programs" }
+            { day: "Monday", content: "Strings: Working with Text" },
+            { day: "Wednesday", content: "String operations and formatting" },
+            { day: "Friday", content: "Fun Project: Create a mad libs game" }
         ],
-        resources: ["https://realpython.com/python-conditional-statements/", "https://www.w3schools.com/python/python_conditions.asp"],
-        notebookId: "notebooks/week3_making_decisions.ipynb"
+        resources: ["https://www.w3schools.com/python/python_strings.asp", "https://realpython.com/python-strings/"],
+        notebookId: "notebooks/week3_strings.ipynb",
+        quiz: "Mini Quiz: String Manipulation"
     },
     {
         week: 4,
         topics: [
-            { day: "Monday", content: "Introduction to loops" },
-            { day: "Wednesday", content: "For loops with ranges" },
-            { day: "Friday", content: "While loops + Simple programs using loops" }
+            { day: "Monday", content: "Introduction to Lists" },
+            { day: "Wednesday", content: "List operations and methods" },
+            { day: "Friday", content: "Fun Project: Build a to-do list app" }
         ],
-        resources: ["https://wiki.python.org/moin/ForLoop", "https://www.w3schools.com/python/python_while_loops.asp"],
-        notebookId: "notebooks/week4_loops.ipynb"
+        resources: ["https://www.w3schools.com/python/python_lists.asp", "https://realpython.com/python-lists-tuples/"],
+        notebookId: "notebooks/week4_lists.ipynb",
+        quiz: "Mini Quiz: Working with Lists"
     },
     {
         week: 5,
         topics: [
-            { day: "Monday", content: "Introduction to lists" },
-            { day: "Wednesday", content: "Adding and removing items from lists" },
-            { day: "Friday", content: "Looping through lists + Simple list-based programs" }
+            { day: "Monday", content: "If statements: Making decisions" },
+            { day: "Wednesday", content: "Else and elif: More decision making" },
+            { day: "Friday", content: "Fun Project: Create a simple quiz game" }
         ],
-        resources: ["https://docs.python.org/3/tutorial/introduction.html#lists", "https://www.w3schools.com/python/python_lists.asp"],
-        notebookId: "notebooks/week5_lists.ipynb"
+        resources: ["https://www.w3schools.com/python/python_conditions.asp", "https://realpython.com/python-conditional-statements/"],
+        notebookId: "notebooks/week5_decisions.ipynb",
+        quiz: "Mini Quiz: Conditional Statements",
+        exam: "Mid-term Exam: Basics of Python Programming"
     },
     {
         week: 6,
         topics: [
-            { day: "Monday", content: "What are functions?" },
-            { day: "Wednesday", content: "Creating simple functions" },
-            { day: "Friday", content: "Function parameters and Return values" }
+            { day: "Monday", content: "For loops: Repeating actions" },
+            { day: "Wednesday", content: "While loops: Another way to repeat" },
+            { day: "Friday", content: "Fun Project: Design a number guessing game" }
         ],
-        resources: ["https://www.w3schools.com/python/python_functions.asp", "https://realpython.com/defining-your-own-python-function/"],
-        notebookId: "notebooks/week6_functions_intro.ipynb"
+        resources: ["https://www.w3schools.com/python/python_for_loops.asp", "https://www.w3schools.com/python/python_while_loops.asp"],
+        notebookId: "notebooks/week6_loops.ipynb",
+        quiz: "Mini Quiz: Looping in Python"
     },
     {
         week: 7,
         topics: [
-            { day: "Monday", content: "Review of concepts" },
-            { day: "Wednesday", content: "Guided mini-projects (e.g., simple calculator, guessing game)" },
-            { day: "Friday", content: "Introduction to problem-solving with Python" }
+            { day: "Monday", content: "Functions: Creating reusable code" },
+            { day: "Wednesday", content: "Function parameters and return values" },
+            { day: "Friday", content: "Fun Project: Build a simple drawing program" }
         ],
-        resources: ["https://www.practicepython.org/", "https://projecteuler.net/archives"],
-        notebookId: "notebooks/week7_mini_projects.ipynb"
+        resources: ["https://www.w3schools.com/python/python_functions.asp", "https://realpython.com/defining-your-own-python-function/"],
+        notebookId: "notebooks/week7_functions.ipynb",
+        quiz: "Mini Quiz: Working with Functions"
     },
     {
         week: 8,
         topics: [
-            { day: "Monday", content: "More complex functions" },
-            { day: "Wednesday", content: "Introduction to modules" },
-            { day: "Friday", content: "Using simple built-in modules (e.g., random, time)" }
+            { day: "Monday", content: "Dictionaries: Storing key-value pairs" },
+            { day: "Wednesday", content: "Working with dictionaries" },
+            { day: "Friday", content: "Fun Project: Create a mini address book" }
         ],
-        resources: ["https://docs.python.org/3/tutorial/modules.html", "https://realpython.com/python-modules-packages/"],
-        notebookId: "notebooks/week8_modules.ipynb"
+        resources: ["https://www.w3schools.com/python/python_dictionaries.asp", "https://realpython.com/python-dicts/"],
+        notebookId: "notebooks/week8_dictionaries.ipynb",
+        quiz: "Mini Quiz: Using Dictionaries"
     },
     {
         week: 9,
         topics: [
-            { day: "Monday", content: "Reading from files" },
-            { day: "Wednesday", content: "Writing to files" },
-            { day: "Friday", content: "Simple data storage projects" }
+            { day: "Monday", content: "File handling: Reading from files" },
+            { day: "Wednesday", content: "File handling: Writing to files" },
+            { day: "Friday", content: "Fun Project: Build a simple note-taking app" }
         ],
-        resources: ["https://docs.python.org/3/tutorial/inputoutput.html#reading-and-writing-files", "https://realpython.com/read-write-files-python/"],
-        notebookId: "notebooks/week9_file_handling.ipynb"
+        resources: ["https://www.w3schools.com/python/python_file_handling.asp", "https://realpython.com/read-write-files-python/"],
+        notebookId: "notebooks/week9_file_handling.ipynb",
+        quiz: "Mini Quiz: File Operations"
     },
     {
         week: 10,
         topics: [
-            { day: "Monday", content: "Guided final project (e.g., simple text-based game)" },
-            { day: "Wednesday", content: "Review of the course" },
-            { day: "Friday", content: "Introduction to further learning resources" }
+            { day: "Monday", content: "Review of key concepts" },
+            { day: "Wednesday", content: "Final project work: Create your own text-based adventure game" },
+            { day: "Friday", content: "Project presentations and course wrap-up" }
         ],
         resources: ["https://inventwithpython.com/invent4thed/", "https://www.python.org/about/apps/"],
-        notebookId: "notebooks/week10_final_project.ipynb"
+        notebookId: "notebooks/week10_final_project.ipynb",
+        exam: "Final Exam: Comprehensive Python Skills"
     }
 ];
+// Set a static password for all weeks
+const STATIC_PASSWORD = "adminpass";
 
-// Add a 'password' property to each week
+// Lock all weeks except the first one initially
 courseSchedule.forEach((week, index) => {
-    week.locked = index > 0; // Lock all weeks except the first one initially
-    week.password = `week${week.week}pass`; // Simple password for each week
+    week.locked = index > 0;
 });
 
 let currentWeek = null;
 
 function unlockWeek(weekNumber, enteredPassword) {
     const week = courseSchedule.find(w => w.week === weekNumber);
-    if (week && week.password === enteredPassword) {
+    if (week && enteredPassword === STATIC_PASSWORD) {
         week.locked = false;
         updateScheduleDisplay();
         return true;
@@ -158,11 +170,20 @@ function populateScheduleTable() {
         resourcesCell.appendChild(resourcesList);
         row.appendChild(resourcesCell);
 
-        const notesCell = document.createElement('td');
-        const notesInput = document.createElement('textarea');
-        notesInput.placeholder = 'Add notes here...';
-        notesCell.appendChild(notesInput);
-        row.appendChild(notesCell);
+        const activityCell = document.createElement('td');
+        if (week.quiz) {
+            const quizButton = document.createElement('button');
+            quizButton.textContent = 'Take Quiz';
+            quizButton.addEventListener('click', () => showQuiz(week.week));
+            activityCell.appendChild(quizButton);
+        }
+        if (week.exam) {
+            const examButton = document.createElement('button');
+            examButton.textContent = 'Take Exam';
+            examButton.addEventListener('click', () => showExam(week.week));
+            activityCell.appendChild(examButton);
+        }
+        row.appendChild(activityCell);
 
         if (week.locked) {
             row.classList.add('locked');
@@ -206,6 +227,20 @@ function setupPasswordModal() {
             modal.style.display = 'none';
         }
     });
+}
+
+function showQuiz(weekNumber) {
+    const week = courseSchedule.find(w => w.week === weekNumber);
+    if (week && week.quiz) {
+        alert(`Quiz for Week ${weekNumber}: ${week.quiz}\n\nQuiz content would be displayed here.`);
+    }
+}
+
+function showExam(weekNumber) {
+    const week = courseSchedule.find(w => w.week === weekNumber);
+    if (week && week.exam) {
+        alert(`Exam for Week ${weekNumber}: ${week.exam}\n\nExam content would be displayed here.`);
+    }
 }
 
 function setupTabs() {
