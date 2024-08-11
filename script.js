@@ -102,6 +102,7 @@ const courseSchedule = [
 ];
 
 const STATIC_PASSWORD = "ohtutor2024";
+const GITHUB_NOTEBOOKS_BASE_URL = "https://github.com/Asrarfarooq/OhTutor/blob/main/notebooks/";
 
 // Lock all weeks except the first one initially
 courseSchedule.forEach((week, index) => {
@@ -176,11 +177,11 @@ function populateScheduleTable() {
         if (week.notebookId) {
             const notebookLink = document.createElement('a');
             notebookLink.href = "#";
-            notebookLink.textContent = 'Open Notebook';
+            notebookLink.textContent = 'Open in Colab';
             notebookLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 if (!week.locked) {
-                    openNotebook(week.notebookId);
+                    openNotebookInColab(week.notebookId);
                 }
             });
             notebookCell.appendChild(notebookLink);
@@ -199,72 +200,9 @@ function populateScheduleTable() {
     });
 }
 
-function openNotebook(notebookId) {
-    const jupyterLiteUrl = 'https://jupyterlite.github.io/demo/repl/index.html?kernel=python&toolbar=1';
-    const notebookUrl = `https://raw.githubusercontent.com/Asrarfarooq/OhTutor/main/notebooks/${notebookId}`;
-    
-    // Open JupyterLite in a new window
-    const jupyterWindow = window.open('', '_blank', 'width=800,height=600');
-    jupyterWindow.document.write(`
-        <html>
-            <head>
-                <title>OhTutor Jupyter Notebook</title>
-                <style>
-                    body, html, iframe {
-                        margin: 0;
-                        padding: 0;
-                        height: 100%;
-                        width: 100%;
-                        border: none;
-                    }
-                    #loadingMessage {
-                        position: fixed;
-                        top: 50%;
-                        left: 50%;
-                        transform: translate(-50%, -50%);
-                        font-family: Arial, sans-serif;
-                        font-size: 18px;
-                    }
-                </style>
-            </head>
-            <body>
-                <div id="loadingMessage">Loading JupyterLite environment...</div>
-                <iframe id="jupyterFrame" style="display:none;" width="100%" height="100%"></iframe>
-                <script>
-                    // Function to load JupyterLite first, then the notebook
-                    async function loadNotebook() {
-                        try {
-                            // Step 1: Load JupyterLite
-                            document.getElementById('jupyterFrame').src = '${jupyterLiteUrl}';
-                            document.getElementById('jupyterFrame').onload = async function() {
-                                document.getElementById('loadingMessage').textContent = 'Loading notebook...';
-                                // Step 2: Fetch and load the notebook
-                                const response = await fetch('${notebookUrl}');
-                                if (!response.ok) {
-                                    throw new Error('Failed to fetch notebook');
-                                }
-                                const notebookContent = await response.text();
-                                
-                                // Use postMessage to send the notebook content to JupyterLite
-                                document.getElementById('jupyterFrame').contentWindow.postMessage({
-                                    type: 'loadNotebook',
-                                    content: notebookContent
-                                }, '*');
-
-                                // Hide loading message and show the iframe
-                                document.getElementById('loadingMessage').style.display = 'none';
-                                document.getElementById('jupyterFrame').style.display = 'block';
-                            };
-                        } catch (error) {
-                            console.error('Error loading notebook:', error);
-                            document.body.innerHTML = '<h1>Error loading notebook. Please try again.</h1>';
-                        }
-                    }
-                    loadNotebook();
-                </script>
-            </body>
-        </html>
-    `);
+function openNotebookInColab(notebookId) {
+    const colabUrl = `https://colab.research.google.com/github/Asrarfarooq/OhTutor/blob/main/notebooks/${notebookId}`;
+    window.open(colabUrl, '_blank');
 }
 
 function showPasswordModal(weekNumber) {
