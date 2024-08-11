@@ -203,52 +203,29 @@ function openNotebook(notebookId) {
     const jupyterLiteUrl = 'https://jupyterlite.github.io/demo/repl/index.html?kernel=python&toolbar=1';
     const notebookUrl = `https://raw.githubusercontent.com/Asrarfarooq/OhTutor/main/notebooks/${notebookId}`;
     
-    fetch(notebookUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-            return response.text(); // Get the raw text instead of parsing JSON
-        })
-        .then(text => {
-            let notebookContent;
-            try {
-                notebookContent = JSON.parse(text);
-            } catch (e) {
-                console.error('JSON parsing error:', e);
-                console.log('Problematic JSON:', text);
-                throw new Error('Invalid notebook format. Please check the notebook file.');
-            }
-            
-            const encodedNotebook = encodeURIComponent(JSON.stringify(notebookContent));
-            const fullUrl = `${jupyterLiteUrl}&notebook=${encodedNotebook}`;
-            
-            // Open JupyterLite in a new window
-            const jupyterWindow = window.open('', '_blank', 'width=800,height=600');
-            jupyterWindow.document.write(`
-                <html>
-                    <head>
-                        <title>OhTutor Jupyter Notebook</title>
-                        <style>
-                            body, html, iframe {
-                                margin: 0;
-                                padding: 0;
-                                height: 100%;
-                                width: 100%;
-                                border: none;
-                            }
-                        </style>
-                    </head>
-                    <body>
-                        <iframe src="${fullUrl}" width="100%" height="100%"></iframe>
-                    </body>
-                </html>
-            `);
-        })
-        .catch(error => {
-            console.error('Error loading notebook:', error);
-            alert(`Failed to load the notebook: ${error.message}\nPlease check the console for more details.`);
-        });
+    const fullUrl = `${jupyterLiteUrl}&path=${encodeURIComponent(notebookUrl)}`;
+
+    // Open JupyterLite in a new window with the notebook URL
+    const jupyterWindow = window.open('', '_blank', 'width=800,height=600');
+    jupyterWindow.document.write(`
+        <html>
+            <head>
+                <title>OhTutor Jupyter Notebook</title>
+                <style>
+                    body, html, iframe {
+                        margin: 0;
+                        padding: 0;
+                        height: 100%;
+                        width: 100%;
+                        border: none;
+                    }
+                </style>
+            </head>
+            <body>
+                <iframe src="${fullUrl}" width="100%" height="100%"></iframe>
+            </body>
+        </html>
+    `);
 }
 
 
