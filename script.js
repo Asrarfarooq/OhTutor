@@ -240,6 +240,9 @@ function openNotebook(notebookId) {
                                 document.getElementById('loadingMessage').textContent = 'Loading notebook...';
                                 // Step 2: Fetch and load the notebook
                                 const response = await fetch('${notebookUrl}');
+                                if (!response.ok) {
+                                    throw new Error('Failed to fetch notebook');
+                                }
                                 const notebookContent = await response.text();
                                 
                                 // Use postMessage to send the notebook content to JupyterLite
