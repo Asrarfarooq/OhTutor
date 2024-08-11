@@ -263,7 +263,6 @@ function openNotebook(notebookId) {
         </html>
     `);
 }
-}
 
 function showPasswordModal(weekNumber) {
     currentWeek = weekNumber;
