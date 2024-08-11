@@ -201,7 +201,7 @@ function populateScheduleTable() {
 
 function openNotebook(notebookId) {
     const jupyterLiteUrl = 'https://jupyterlite.github.io/demo/repl/index.html?kernel=python&toolbar=1';
-    const notebookUrl = `notebooks/${notebookId}`;
+    const notebookUrl = `https://raw.githubusercontent.com/Asrarfarooq/OhTutor/main/notebooks/${notebookId}`;
     
     fetch(notebookUrl)
         .then(response => {
@@ -250,6 +250,7 @@ function openNotebook(notebookId) {
             alert(`Failed to load the notebook: ${error.message}\nPlease check the console for more details.`);
         });
 }
+
 
 function showPasswordModal(weekNumber) {
     currentWeek = weekNumber;
