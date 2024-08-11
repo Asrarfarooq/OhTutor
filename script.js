@@ -206,11 +206,20 @@ function openNotebook(notebookId) {
     fetch(notebookUrl)
         .then(response => {
             if (!response.ok) {
-                throw new Error('Failed to load the notebook');
+                throw new Error(`HTTP error! status: ${response.status}`);
             }
-            return response.json();
+            return response.text(); // Get the raw text instead of parsing JSON
         })
-        .then(notebookContent => {
+        .then(text => {
+            let notebookContent;
+            try {
+                notebookContent = JSON.parse(text);
+            } catch (e) {
+                console.error('JSON parsing error:', e);
+                console.log('Problematic JSON:', text);
+                throw new Error('Invalid notebook format. Please check the notebook file.');
+            }
+            
             const encodedNotebook = encodeURIComponent(JSON.stringify(notebookContent));
             const fullUrl = `${jupyterLiteUrl}&notebook=${encodedNotebook}`;
             
@@ -238,7 +247,7 @@ function openNotebook(notebookId) {
         })
         .catch(error => {
             console.error('Error loading notebook:', error);
-            alert('Failed to load the notebook. Please try again later.');
+            alert(`Failed to load the notebook: ${error.message}\nPlease check the console for more details.`);
         });
 }
 
