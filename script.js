@@ -217,19 +217,41 @@ function openNotebook(notebookId) {
                         width: 100%;
                         border: none;
                     }
+                    #loadingMessage {
+                        position: fixed;
+                        top: 50%;
+                        left: 50%;
+                        transform: translate(-50%, -50%);
+                        font-family: Arial, sans-serif;
+                        font-size: 18px;
+                    }
                 </style>
             </head>
             <body>
-                <iframe id="jupyterFrame" width="100%" height="100%"></iframe>
+                <div id="loadingMessage">Loading JupyterLite environment...</div>
+                <iframe id="jupyterFrame" style="display:none;" width="100%" height="100%"></iframe>
                 <script>
-                    // Function to fetch the notebook content and load it into JupyterLite
+                    // Function to load JupyterLite first, then the notebook
                     async function loadNotebook() {
                         try {
-                            const response = await fetch('${notebookUrl}');
-                            const notebookContent = await response.text();
-                            const encodedNotebook = encodeURIComponent(notebookContent);
-                            const fullUrl = '${jupyterLiteUrl}&notebook=' + encodedNotebook;
-                            document.getElementById('jupyterFrame').src = fullUrl;
+                            // Step 1: Load JupyterLite
+                            document.getElementById('jupyterFrame').src = '${jupyterLiteUrl}';
+                            document.getElementById('jupyterFrame').onload = async function() {
+                                document.getElementById('loadingMessage').textContent = 'Loading notebook...';
+                                // Step 2: Fetch and load the notebook
+                                const response = await fetch('${notebookUrl}');
+                                const notebookContent = await response.text();
+                                
+                                // Use postMessage to send the notebook content to JupyterLite
+                                document.getElementById('jupyterFrame').contentWindow.postMessage({
+                                    type: 'loadNotebook',
+                                    content: notebookContent
+                                }, '*');
+
+                                // Hide loading message and show the iframe
+                                document.getElementById('loadingMessage').style.display = 'none';
+                                document.getElementById('jupyterFrame').style.display = 'block';
+                            };
                         } catch (error) {
                             console.error('Error loading notebook:', error);
                             document.body.innerHTML = '<h1>Error loading notebook. Please try again.</h1>';
@@ -240,6 +262,7 @@ function openNotebook(notebookId) {
             </body>
         </html>
     `);
+}
 }
 
 function showPasswordModal(weekNumber) {
