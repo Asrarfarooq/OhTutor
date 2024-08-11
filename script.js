@@ -201,10 +201,15 @@ function populateScheduleTable() {
 
 function openNotebook(notebookId) {
     const jupyterLiteUrl = 'https://jupyterlite.github.io/demo/repl/index.html?kernel=python&toolbar=1';
-    const notebookUrl = `https://raw.githubusercontent.com/Asrarfarooq/OhTutor/main/notebooks/${notebookId}`;
+    const notebookUrl = `notebooks/${notebookId}`;
     
     fetch(notebookUrl)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to load the notebook');
+            }
+            return response.json();
+        })
         .then(notebookContent => {
             const encodedNotebook = encodeURIComponent(JSON.stringify(notebookContent));
             const fullUrl = `${jupyterLiteUrl}&notebook=${encodedNotebook}`;
