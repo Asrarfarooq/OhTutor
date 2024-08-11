@@ -203,9 +203,7 @@ function openNotebook(notebookId) {
     const jupyterLiteUrl = 'https://jupyterlite.github.io/demo/repl/index.html?kernel=python&toolbar=1';
     const notebookUrl = `https://raw.githubusercontent.com/Asrarfarooq/OhTutor/main/notebooks/${notebookId}`;
     
-    const fullUrl = `${jupyterLiteUrl}&path=${encodeURIComponent(notebookUrl)}`;
-
-    // Open JupyterLite in a new window with the notebook URL
+    // Open JupyterLite in a new window
     const jupyterWindow = window.open('', '_blank', 'width=800,height=600');
     jupyterWindow.document.write(`
         <html>
@@ -222,12 +220,27 @@ function openNotebook(notebookId) {
                 </style>
             </head>
             <body>
-                <iframe src="${fullUrl}" width="100%" height="100%"></iframe>
+                <iframe id="jupyterFrame" width="100%" height="100%"></iframe>
+                <script>
+                    // Function to fetch the notebook content and load it into JupyterLite
+                    async function loadNotebook() {
+                        try {
+                            const response = await fetch('${notebookUrl}');
+                            const notebookContent = await response.text();
+                            const encodedNotebook = encodeURIComponent(notebookContent);
+                            const fullUrl = '${jupyterLiteUrl}&notebook=' + encodedNotebook;
+                            document.getElementById('jupyterFrame').src = fullUrl;
+                        } catch (error) {
+                            console.error('Error loading notebook:', error);
+                            document.body.innerHTML = '<h1>Error loading notebook. Please try again.</h1>';
+                        }
+                    }
+                    loadNotebook();
+                </script>
             </body>
         </html>
     `);
 }
-
 
 function showPasswordModal(weekNumber) {
     currentWeek = weekNumber;
